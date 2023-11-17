@@ -7,6 +7,7 @@
     "start": "npx http-server -c-1 docs -o index.1.html",
     "build": "npx pegjs --output src/sile.js src/sile.pegjs && npm run build-browser",
     "build-browser": "npx pegjs --output docs/lib/sile/sile.js --format globals --export-var 'Sile_parser' src/sile.pegjs",
+    "build-ui": "cp docs/index.1.html docs/index.html",
     "test": "node test/test.js"
   },
   "keywords": [],
