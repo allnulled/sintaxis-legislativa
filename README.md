@@ -2,6 +2,13 @@
 
 Lenguaje de programación para dejar constancia de los cambios de estado aplicados a las leyes. 
 
+## Versión online
+
+Puedes acceder a una versión online mínima donde testear la sintaxis en:
+
+- [https://allnulled.github.io/sintaxis-legislativa/](https://allnulled.github.io/sintaxis-legislativa/)
+
+
 ## Instalación
 
 Con npm te lo instalas:
