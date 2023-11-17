@@ -1,7 +1,7 @@
 {
   "name": "sile",
   "version": "1.0.0",
-  "description": "",
+  "description": "Lenguaje de programación para dejar constancia de los cambios de estado aplicados a las leyes.",
   "main": "src/sile.js",
   "scripts": {
     "start": "npx http-server -c-1 docs -o index.1.html",
@@ -11,6 +11,18 @@
     "test": "node test/test.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "allnulled",
+  "license": "WTFPL",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allnulled/sintaxis-legislativa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/allnulled/sintaxis-legislativa/issues"
+  },
+  "homepage": "https://github.com/allnulled/sintaxis-legislativa#readme"
 }
