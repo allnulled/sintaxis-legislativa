@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/sile.js",
   "scripts": {
-    "build": "npx pegjs --output src/sile.js src/sile.pegjs",
-    "build-browser": "npx pegjs --output src/sile.js --format globals --export-var 'Sile_parser' src/sile.pegjs",
+    "build": "npx pegjs --output src/sile.js src/sile.pegjs && npm run build-browser",
+    "build-browser": "npx pegjs --output docs/lib/sile/sile.js --format globals --export-var 'Sile_parser' src/sile.pegjs",
     "test": "node test/test.js"
   },
   "keywords": [],

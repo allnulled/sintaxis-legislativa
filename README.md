@@ -1,5 +1,7 @@
 # SiLe: Sintaxis legislativa
 
+Lenguaje de programación para dejar constancia de los cambios de estado aplicados a las leyes. 
+
 ## Instalación
 
 Con npm te lo instalas:
@@ -35,7 +37,14 @@ Se elimina ley <Id> y toda su descendencia.
 )
 ```
 
-En navegadores todavía no.
+En navegadores:
+
+```html
+<script src="node_modules/sile/docs/lib/sile/sile.js"></script>
+<script>
+    const ast = window.Sile_parser.parse(texto_para_sile);
+</script>
+```
 
 ## Sintaxis
 
@@ -60,5 +69,7 @@ Se elimina ley <Id>.
 
 Se elimina ley <Id> y toda su descendencia.
 ```
+
+La asignación del padre en la creación de leyes es opcional. En un estado constitucional, podría no serlo, porque todas las leyes emanarían de la constitución, de la ley inicial.
 
 Esto es transformado a JSON, y puede usarse para buildear queries a bases de datos, abstractamente.
