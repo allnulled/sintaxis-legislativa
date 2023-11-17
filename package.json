@@ -1,0 +1,14 @@
+{
+  "name": "sile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/sile.js",
+  "scripts": {
+    "build": "npx pegjs --output src/sile.js src/sile.pegjs",
+    "build-browser": "npx pegjs --output src/sile.js --format globals --export-var 'Sile_parser' src/sile.pegjs",
+    "test": "node test/test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

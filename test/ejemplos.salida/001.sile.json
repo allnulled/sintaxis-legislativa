@@ -1,0 +1,28 @@
+{
+  "cabecera": {
+    "titulo": "<Nombre de la modificación de ley>"
+  },
+  "sentencias": [
+    {
+      "tipo": "creación de ley",
+      "nombre": "<Nombre de ley>",
+      "padre": "<Id de ley padre>",
+      "contenido": "Bla bla bla.\nBla bla bla.\nBla bla bla."
+    },
+    {
+      "tipo": "actualización de ley",
+      "nombre": "<Id>",
+      "contenido": "Bla bla bla.\nBla bla bla.\nBla bla bla."
+    },
+    {
+      "tipo": "eliminación de ley",
+      "nombre": "<Id>",
+      "descendencia": false
+    },
+    {
+      "tipo": "eliminación de ley",
+      "nombre": "<Id>",
+      "descendencia": true
+    }
+  ]
+}

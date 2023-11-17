@@ -1,0 +1,18 @@
+Modificación de ley <Nombre de la modificación de ley>.
+
+Se crea ley <Nombre de ley> con padre <Id de ley padre> con contenido:
+
+Bla bla bla.
+Bla bla bla.
+Bla bla bla.
+
+Se actualiza ley <Id> con contenido:
+
+Bla bla bla.
+Bla bla bla.
+Bla bla bla.
+
+Se elimina ley <Id>.
+
+Se elimina ley <Id> y toda su descendencia.
+
