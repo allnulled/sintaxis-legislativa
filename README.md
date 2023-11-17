@@ -1,12 +1,16 @@
 # SiLe: Sintaxis legislativa
 
-En node.js te lo instalas:
+## Instalación
+
+Con npm te lo instalas:
 
 ```sh
 npm install --save sile
 ```
 
-Y lo usas:
+## Uso
+
+Desde node.js lo usas:
 
 ```js
 const SileParser = require("sile");
@@ -32,3 +36,29 @@ Se elimina ley <Id> y toda su descendencia.
 ```
 
 En navegadores todavía no.
+
+## Sintaxis
+
+Esto es un texto válido.
+
+```
+Modificación de ley <Nombre de la modificación de ley>.
+
+Se crea ley <Nombre de ley> con padre <Id de ley padre> con contenido:
+
+Bla bla bla.
+Bla bla bla.
+Bla bla bla.
+
+Se actualiza ley <Id> con contenido:
+
+Bla bla bla.
+Bla bla bla.
+Bla bla bla.
+
+Se elimina ley <Id>.
+
+Se elimina ley <Id> y toda su descendencia.
+```
+
+Esto es transformado a JSON, y puede usarse para buildear queries a bases de datos, abstractamente.
