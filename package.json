@@ -1,6 +1,6 @@
 {
   "name": "sile",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lenguaje de programación para dejar constancia de los cambios de estado aplicados a las leyes.",
   "main": "src/sile.js",
   "scripts": {
