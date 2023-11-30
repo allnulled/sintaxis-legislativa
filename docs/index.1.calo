@@ -22,6 +22,10 @@ Ejecutable como documento HTML5
         color: white;
         padding: 4px;
         cursor: pointer;
+        margin-top: 4px;
+        border: 1px solid #333;
+        border-radius: 3pt;
+        cursor: pointer;
       }
       .caja_de_boton_de_ley {
         display: inline-block;
@@ -155,11 +159,11 @@ asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio"
           <button style="width:100%;" v-on:click="ejecutar_sql">▶ Ejecutar</button>
           <div class="error_box" v-if="error" v-on:click="limpiarError">
             <div><b>Nombre:</b> {{ error.name }}</div>
+            <div><b>Mensaje:</b> {{ error.message }}</div>
             <div v-if="error.location">
               <div><b>Localización:</b> {{ error.location }}</div>
               <div><b>Sugerencias:</b> {{ JSON.stringify(error.expected, null, 2) }}</div>
             </div>
-            <div><b>Mensaje:</b> {{ error.message }}</div>
           </div>
           <div class="success_box" v-if="ast && !error">
             <pre style="overflow:scroll;">{{ ast.toSQL.join("\n") }}</pre>

@@ -1,5 +1,5 @@
 
-// [castelog:html5izable] ACTIVADO con: {"autor":"allnulled","nombre":"index","version":"1","contenido":{"head":"<head>\n    <title>🌐 SiLe | Editor</title>\n    <meta charset=\"utf8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/win7/win7.scoped.2.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/codemirror/codemirror.css\" />\n    <script src=\"lib/sqlite3/sqlite3.js\"></script>\n    <script src=\"lib/calo/calo.js\"></script>\n    <script src=\"lib/codemirror/codemirror.js\"></script>\n    <script src=\"lib/sqlstring/sqlstring.js\"></script>\n    <script src=\"lib/sile/sile.standalone.js\"></script>\n    <style>\n      html {\n        background-color: #222;\n      }\n      .error_box {\n        background-color: red;\n        color: white;\n        padding: 4px;\n        cursor: pointer;\n      }\n      .caja_de_boton_de_ley {\n        display: inline-block;\n        padding-top: 4px;\n        padding-right: 4px;\n      }\n    </style>\n</head>","body":"<body><div id=\"app\"></div></body>"}}
+// [castelog:html5izable] ACTIVADO con: {"autor":"allnulled","nombre":"index","version":"1","contenido":{"head":"<head>\n    <title>🌐 SiLe | Editor</title>\n    <meta charset=\"utf8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/win7/win7.scoped.2.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/codemirror/codemirror.css\" />\n    <script src=\"lib/sqlite3/sqlite3.js\"></script>\n    <script src=\"lib/calo/calo.js\"></script>\n    <script src=\"lib/codemirror/codemirror.js\"></script>\n    <script src=\"lib/sqlstring/sqlstring.js\"></script>\n    <script src=\"lib/sile/sile.standalone.js\"></script>\n    <style>\n      html {\n        background-color: #222;\n      }\n      .error_box {\n        background-color: red;\n        color: white;\n        padding: 4px;\n        cursor: pointer;\n        margin-top: 4px;\n        border: 1px solid #333;\n        border-radius: 3pt;\n        cursor: pointer;\n      }\n      .caja_de_boton_de_ley {\n        display: inline-block;\n        padding-top: 4px;\n        padding-right: 4px;\n      }\n    </style>\n</head>","body":"<body><div id=\"app\"></div></body>"}}
 
 window.NavegadorDeLey = Castelog.metodos.un_componente_vue2("NavegadorDeLey",
   "<div class=\"NavegadorDeLey Component\">"
@@ -172,11 +172,11 @@ window.PaginaDeInicio = Castelog.metodos.un_componente_vue2("PaginaDeInicio",
  + "          <button style=\"width:100%;\" v-on:click=\"ejecutar_sql\">▶ Ejecutar</button>"
  + "          <div class=\"error_box\" v-if=\"error\" v-on:click=\"limpiarError\">"
  + "            <div><b>Nombre:</b> {{ error.name }}</div>"
+ + "            <div><b>Mensaje:</b> {{ error.message }}</div>"
  + "            <div v-if=\"error.location\">"
  + "              <div><b>Localización:</b> {{ error.location }}</div>"
  + "              <div><b>Sugerencias:</b> {{ JSON.stringify(error.expected, null, 2) }}</div>"
  + "            </div>"
- + "            <div><b>Mensaje:</b> {{ error.message }}</div>"
  + "          </div>"
  + "          <div class=\"success_box\" v-if=\"ast && !error\">"
  + "            <pre style=\"overflow:scroll;\">{{ ast.toSQL.join(\"\\n\") }}</pre>"
