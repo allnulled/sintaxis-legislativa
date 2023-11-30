@@ -19,7 +19,7 @@ Ejecutable como documento HTML5
       }
       .error_box {
         background-color: #C87373;
-        color: white;
+        color: black;
         padding: 4px;
         cursor: pointer;
         margin-top: 4px;
@@ -48,9 +48,6 @@ asigno window.NavegadorDeLey como un componente vue2 con nombre "NavegadorDeLey"
         </div>
       </div>
       <div class="window-body has-space">
-        <div>
-          
-        </div>
         <div>
           <button v-on:click="() => seleccionar_ley(undefined)">Ir a raíz</button>
         </div>
@@ -139,7 +136,7 @@ asigno window.NavegadorDeLey como un componente vue2 con nombre "NavegadorDeLey"
     }.
     método beforeMount donde {}.
     método asíncrono mounted donde {
-      hago asíncronamente setTimeout(una lambda donde hago this.seleccionar_ley(undefined), 1000).
+      hago asíncronamente setTimeout(una lambda donde hago this.seleccionar_ley(undefined), 1000 * 0.2).
     }.
   }.
 }.
@@ -157,16 +154,31 @@ asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio"
         <div style="">
           <textarea style="width: 100%;" ref="entrada_de_texto" v-model="entrada_de_texto"></textarea>
           <button style="width:100%;" v-on:click="ejecutar_sql">▶ Ejecutar</button>
-          <div class="error_box" v-if="error" v-on:click="limpiarError">
-            <div><b>Nombre:</b> {{ error.name }}</div>
-            <div><b>Mensaje:</b> {{ error.message }}</div>
-            <div v-if="error.location">
-              <div><b>Localización:</b> {{ error.location }}</div>
-              <div><b>Sugerencias:</b> {{ JSON.stringify(error.expected, null, 2) }}</div>
-            </div>
-          </div>
-          <div class="success_box" v-if="ast && !error">
-            <pre style="overflow:scroll;">{{ ast.toSQL.join("\n") }}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="window" style="width:100%;" v-if="ast && !error">
+      <div class="title-bar">
+        <div class="title-bar-text">Registro actualizado correctamente</div>
+      </div>
+      <div class="window-body has-space">
+        <div class="success_box">
+          <pre style="overflow:scroll;font-size:10px;">{{ ast.toSQL.join("\n") }}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="window" style="width:100%;" v-if="error">
+      <div class="title-bar">
+        <div class="title-bar-text">Error</div>
+      </div>
+      <div class="window-body has-space">
+        <div class="error_boxx">
+          <button style="width:100%;" v-on:click="limpiar_error">Aceptar</button>
+          <div><b>Nombre:</b> {{ error.name }}</div>
+          <div><b>Mensaje:</b> {{ error.message }}</div>
+          <div v-if="error.location">
+            <div><b>Localización:</b> {{ error.location }}</div>
+            <div><b>Sugerencias:</b> {{ JSON.stringify(error.expected, null, 2) }}</div>
           </div>
         </div>
       </div>
@@ -190,7 +202,7 @@ asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio"
       }.
     }.
     propiedad methods como {
-      método limpiarError donde {
+      método limpiar_error donde {
         asigno this.error como false.
         hago this.$forceUpdate(true).
       }.
@@ -202,6 +214,7 @@ asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio"
         creo sile_script como this.cmEntrada.getValue().
         creo ast como this.root.$window.Sile_api.parser.parse(sile_script).
         asigno this.ast como ast.
+        asigno this.error como undefined.
         creo sentencias_sql como ast.toSQL.
         creo inicio como un nuevo Date().
         creo variable resultados como [].

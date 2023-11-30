@@ -15,7 +15,7 @@
       }
       .error_box {
         background-color: #C87373;
-        color: white;
+        color: black;
         padding: 4px;
         cursor: pointer;
         margin-top: 4px;
@@ -30,7 +30,7 @@
       }
     </style>
 </head><body><div id="app"></div><script>
-// [castelog:html5izable] ACTIVADO con: {"autor":"allnulled","nombre":"index","version":"1","contenido":{"head":"<head>\n    <title>🌐 SiLe | Editor</title>\n    <meta charset=\"utf8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/win7/win7.scoped.2.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/codemirror/codemirror.css\" />\n    &gt;script src=\"lib/sqlite3/sqlite3.js\">&gt;/script>\n    &gt;script src=\"lib/calo/calo.js\">&gt;/script>\n    &gt;script src=\"lib/codemirror/codemirror.js\">&gt;/script>\n    &gt;script src=\"lib/sqlstring/sqlstring.js\">&gt;/script>\n    &gt;script src=\"lib/sile/sile.standalone.js\">&gt;/script>\n    <style>\n      html {\n        background-color: #222;\n      }\n      .error_box {\n        background-color: #C87373;\n        color: white;\n        padding: 4px;\n        cursor: pointer;\n        margin-top: 4px;\n        border: 1px solid #333;\n        border-radius: 3pt;\n        cursor: pointer;\n      }\n      .caja_de_boton_de_ley {\n        display: inline-block;\n        padding-top: 4px;\n        padding-right: 4px;\n      }\n    </style>\n</head>","body":"<body><div id=\"app\"></div></body>"}}
+// [castelog:html5izable] ACTIVADO con: {"autor":"allnulled","nombre":"index","version":"1","contenido":{"head":"<head>\n    <title>🌐 SiLe | Editor</title>\n    <meta charset=\"utf8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/win7/win7.scoped.2.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"lib/codemirror/codemirror.css\" />\n    &gt;script src=\"lib/sqlite3/sqlite3.js\">&gt;/script>\n    &gt;script src=\"lib/calo/calo.js\">&gt;/script>\n    &gt;script src=\"lib/codemirror/codemirror.js\">&gt;/script>\n    &gt;script src=\"lib/sqlstring/sqlstring.js\">&gt;/script>\n    &gt;script src=\"lib/sile/sile.standalone.js\">&gt;/script>\n    <style>\n      html {\n        background-color: #222;\n      }\n      .error_box {\n        background-color: #C87373;\n        color: black;\n        padding: 4px;\n        cursor: pointer;\n        margin-top: 4px;\n        border: 1px solid #333;\n        border-radius: 3pt;\n        cursor: pointer;\n      }\n      .caja_de_boton_de_ley {\n        display: inline-block;\n        padding-top: 4px;\n        padding-right: 4px;\n      }\n    </style>\n</head>","body":"<body><div id=\"app\"></div></body>"}}
 
 window.NavegadorDeLey = Castelog.metodos.un_componente_vue2("NavegadorDeLey",
   "<div class=\"NavegadorDeLey Component\">"
@@ -42,9 +42,6 @@ window.NavegadorDeLey = Castelog.metodos.un_componente_vue2("NavegadorDeLey",
  + "        </div>"
  + "      </div>"
  + "      <div class=\"window-body has-space\">"
- + "        <div>"
- + "          "
- + "        </div>"
  + "        <div>"
  + "          <button v-on:click=\"() => seleccionar_ley(undefined)\">Ir a raíz</button>"
  + "        </div>"
@@ -179,7 +176,7 @@ throw error;
 }
 
 },
-1000 ));
+1000 * 0.2 ));
 } catch(error) {
 console.log(error);
 throw error;
@@ -201,16 +198,31 @@ window.PaginaDeInicio = Castelog.metodos.un_componente_vue2("PaginaDeInicio",
  + "        <div style=\"\">"
  + "          <textarea style=\"width: 100%;\" ref=\"entrada_de_texto\" v-model=\"entrada_de_texto\"></textarea>"
  + "          <button style=\"width:100%;\" v-on:click=\"ejecutar_sql\">▶ Ejecutar</button>"
- + "          <div class=\"error_box\" v-if=\"error\" v-on:click=\"limpiarError\">"
- + "            <div><b>Nombre:</b> {{ error.name }}</div>"
- + "            <div><b>Mensaje:</b> {{ error.message }}</div>"
- + "            <div v-if=\"error.location\">"
- + "              <div><b>Localización:</b> {{ error.location }}</div>"
- + "              <div><b>Sugerencias:</b> {{ JSON.stringify(error.expected, null, 2) }}</div>"
- + "            </div>"
- + "          </div>"
- + "          <div class=\"success_box\" v-if=\"ast && !error\">"
- + "            <pre style=\"overflow:scroll;\">{{ ast.toSQL.join(\"\\n\") }}</pre>"
+ + "        </div>"
+ + "      </div>"
+ + "    </div>"
+ + "    <div class=\"window\" style=\"width:100%;\" v-if=\"ast && !error\">"
+ + "      <div class=\"title-bar\">"
+ + "        <div class=\"title-bar-text\">Registro actualizado correctamente</div>"
+ + "      </div>"
+ + "      <div class=\"window-body has-space\">"
+ + "        <div class=\"success_box\">"
+ + "          <pre style=\"overflow:scroll;font-size:10px;\">{{ ast.toSQL.join(\"\\n\") }}</pre>"
+ + "        </div>"
+ + "      </div>"
+ + "    </div>"
+ + "    <div class=\"window\" style=\"width:100%;\" v-if=\"error\">"
+ + "      <div class=\"title-bar\">"
+ + "        <div class=\"title-bar-text\">Error</div>"
+ + "      </div>"
+ + "      <div class=\"window-body has-space\">"
+ + "        <div class=\"error_boxx\">"
+ + "          <button style=\"width:100%;\" v-on:click=\"limpiar_error\">Aceptar</button>"
+ + "          <div><b>Nombre:</b> {{ error.name }}</div>"
+ + "          <div><b>Mensaje:</b> {{ error.message }}</div>"
+ + "          <div v-if=\"error.location\">"
+ + "            <div><b>Localización:</b> {{ error.location }}</div>"
+ + "            <div><b>Sugerencias:</b> {{ JSON.stringify(error.expected, null, 2) }}</div>"
  + "          </div>"
  + "        </div>"
  + "      </div>"
@@ -233,7 +245,7 @@ throw error;
 }
 
 },
-methods:{ limpiarError() {try {
+methods:{ limpiar_error() {try {
 this.error = false;
 this.$forceUpdate( true );
 } catch(error) {
@@ -255,6 +267,7 @@ async ejecutar_sql() {try {
 const sile_script = this.cmEntrada.getValue(  );
 const ast = this.root.$window.Sile_api.parser.parse( sile_script );
 this.ast = ast;
+this.error = undefined;
 const sentencias_sql = ast.toSQL;
 const inicio = new Date(  );
 let resultados = [  ];
