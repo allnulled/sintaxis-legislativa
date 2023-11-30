@@ -18,7 +18,7 @@ Ejecutable como documento HTML5
         background-color: #222;
       }
       .error_box {
-        background-color: red;
+        background-color: #C87373;
         color: white;
         padding: 4px;
         cursor: pointer;
