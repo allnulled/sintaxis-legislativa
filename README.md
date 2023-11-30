@@ -8,6 +8,8 @@ Puedes acceder a una versión online mínima donde testear la sintaxis en:
 
 - [https://allnulled.github.io/sintaxis-legislativa/](https://allnulled.github.io/sintaxis-legislativa/)
 
+Esta aplicación tiene persistencia real pero local, por lo cual los cambios quedan almacenados en el sistema del dispositivo de navegación web, y no se comparten con nadie.
+
 
 ## Instalación
 
@@ -66,17 +68,18 @@ Bla bla bla.
 Bla bla bla.
 Bla bla bla.
 
-Se actualiza ley <Id> con contenido:
+Se actualiza ley <Nombre de ley> con contenido:
 
 Bla bla bla.
 Bla bla bla.
 Bla bla bla.
 
-Se elimina ley <Id>.
+Se elimina ley <Nombre de ley>.
 
-Se elimina ley <Id> y toda su descendencia.
+Se elimina ley <Nombre de ley> y toda su descendencia.
 ```
 
-La asignación del padre en la creación de leyes es opcional. En un estado constitucional, podría no serlo, porque todas las leyes emanarían de la constitución, de la ley inicial.
-
-Esto es transformado a JSON, y puede usarse para buildear queries a bases de datos, abstractamente.
+- La asignación del padre en la creación de leyes es opcional.
+   - en un estado constitucional, podría no serlo, porque podrían usar la herencia para representar a la constitución como la raíz de todas las leyes. Pero bueno, ni siquiera tendría por qué hacerse así.
+- Esto es transformado a un JSON, y puede usarse para buildear queries a bases de datos, abstractamente.
+- Pueden haber múltiples modificaciones de ley, con múltiples operaciones, en cada fichero.

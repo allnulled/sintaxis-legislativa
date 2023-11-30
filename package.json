@@ -4,11 +4,13 @@
   "description": "Lenguaje de programación para dejar constancia de los cambios de estado aplicados a las leyes.",
   "main": "src/sile.js",
   "scripts": {
+    "dev": "npx nodemon -x js,json,sile,html,pegjs --watch 'src/sile.parser.pegjs' --watch 'docs/index.1.html' --watch test/ejemplos/*.sile --exec 'npm run test'",
     "start": "npx http-server -c-1 docs -o index.1.html",
-    "build": "npx pegjs --output src/sile.js src/sile.pegjs && npm run build-browser",
-    "build-browser": "npx pegjs --output docs/lib/sile/sile.js --format globals --export-var 'Sile_parser' src/sile.pegjs",
+    "build": "npm run build-parser && npm run build-browser",
+    "build-parser": "npx pegjs --output src/sile.parser.js src/sile.parser.pegjs",
+    "build-browser": "npx browserify src/sile.api.js --outfile src/sile.standalone.js && cp src/sile.standalone.js docs/lib/sile/sile.standalone.js && npm run build-ui",
     "build-ui": "cp docs/index.1.html docs/index.html",
-    "test": "node test/test.js"
+    "test": "npm run build && node test/test.js"
   },
   "keywords": [],
   "author": "allnulled",

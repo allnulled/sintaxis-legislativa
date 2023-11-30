@@ -8,15 +8,25 @@ Ejecutable como documento HTML5
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="lib/win7/win7.scoped.2.css" />
     <link rel="stylesheet" type="text/css" href="lib/codemirror/codemirror.css" />
+    <script src="lib/sqlite3/sqlite3.js"></script>
     <script src="lib/calo/calo.js"></script>
     <script src="lib/codemirror/codemirror.js"></script>
-    <script src="lib/sile/sile.js"></script>
+    <script src="lib/sqlstring/sqlstring.js"></script>
+    <script src="lib/sile/sile.standalone.js"></script>
     <style>
+      html {
+        background-color: #222;
+      }
       .error_box {
         background-color: red;
         color: white;
         padding: 4px;
         cursor: pointer;
+      }
+      .caja_de_boton_de_ley {
+        display: inline-block;
+        padding-top: 4px;
+        padding-right: 4px;
       }
     </style>
 </head>
@@ -24,29 +34,35 @@ Ejecutable como documento HTML5
 
 ### importo api nativa.
 
-asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio" con plantilla {
-  <div class="PaginaDeInicio Component">
+asigno window.NavegadorDeLey como un componente vue2 con nombre "NavegadorDeLey" con plantilla {
+  <div class="NavegadorDeLey Component">
     <div class="window">
       <div class="title-bar">
-        <div class="title-bar-text">
-          🌐 SiLe | Editor
+        <div class="title-bar-text" style="width:100%;">
+          <span>🌐 SiLe | Explorer 🌐</span>
+          <button style="float:right;" v-on:click="actualizar_datos">Refrescar</button>
         </div>
       </div>
       <div class="window-body has-space">
-        <textarea style="width: 100%;" ref="entrada_de_texto"></textarea>
-        <button style="width:100%;" v-on:click="validarTexto">Validar</button>
-        <div class="error_box" v-if="error" v-on:click="limpiarError">
-          <div>Nombre: {{ error.name }}</div>
-          <div v-if="error.location">
-            <div>Localización: {{ error.location.start.offset }}-{{error.location.end.offset}}</div>
-            <div>Localización: {{ error.location.start.line }}:{{error.location.start.column}}-{{ error.location.end.line }}:{{error.location.end.column}}</div>
-            <div>Sugerencias: {{ JSON.stringify(error.expected, null, 2) }}</div>
-          </div>
-          <div>Mensaje: {{ error.message }}</div>
-          <div>Pila: {{ error.stack }}</div>
+        <div>
+          
         </div>
-        <div class="success_box" v-if="ast && !error">
-          <pre style="word-wrap: anywhere; white-space: pre-wrap;">{{ JSON.stringify(ast) }}</pre>
+        <div>
+          <button v-on:click="() => seleccionar_ley(undefined)">Ir a raíz</button>
+        </div>
+        <div v-if="ley_seleccionada && ley_seleccionada.padre">
+          <button v-on:click="() => seleccionar_ley(ley_seleccionada.padre)">Ir a ley padre</button>
+        </div>
+        <div v-if="ley_seleccionada">
+          <div class="nombre_de_ley_seleccionada"><b>Ley:</b> {{ ley_seleccionada.nombre }}</div>
+          <div class="padre_de_ley_seleccionada"><b>Ley padre:</b> {{ ley_seleccionada.padre }}</div>
+          <div class="modificacion_de_ley_seleccionada"><b>Modificación de ley:</b> {{ ley_seleccionada.modificacion_de_ley }}</div>
+          <div class="contenido_de_ley_seleccionada"><b>Contenido:</b> {{ ley_seleccionada.contenido }}</div>
+        </div>
+        <div v-if="ley_seleccionada_descendencia">
+          <span class="caja_de_boton_de_ley" v-for="descendiente, descendiente_index in ley_seleccionada_descendencia" v-bind:key="'descendiente-' + descendiente_index">
+            <button href="javascript:void(0)" v-on:click="() => seleccionar_ley(descendiente.nombre)">{{ descendiente.nombre }}</button>
+          </span>
         </div>
       </div>
     </div>
@@ -61,7 +77,110 @@ asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio"
     }.
     método data donde {
       retorno {
+        nombre_de_ley_seleccionada: null,
+        ley_seleccionada: undefined,
+        ley_seleccionada_descendencia: []
+      }.
+    }.
+    propiedad methods como {
+      método asíncrono obtener_ley_seleccionada con () donde {
+        si this.nombre_de_ley_seleccionada no es tipo texto o this.nombre_de_ley_seleccionada.length es igual que 0 {
+          retorno asíncronamente this.obtener_leyes_raiz().
+        }.
+        creo variable sql como "".
+        incremento sql en "SELECT * FROM Ley WHERE nombre = ".
+        incremento sql en sqlstring.escape(this.nombre_de_ley_seleccionada).
+        incremento sql en ";".
+        creo resultado como asíncronamente this.root.$db.run(sql).
+        asigno this.ley_seleccionada como resultado[0].
+        hago this.$forceUpdate(true).
+      }.
+      método asíncrono obtener_descendencia_de_ley_seleccionada con () donde {
+        creo variable sql como "".
+        incremento sql en "SELECT * FROM Ley WHERE padre = ".
+        incremento sql en sqlstring.escape(this.ley_seleccionada.nombre).
+        incremento sql en ";".
+        creo resultado como asíncronamente this.root.$db.run(sql).
+        asigno this.ley_seleccionada_descendencia como resultado.
+        hago this.$forceUpdate(true).
+      }.
+      método asíncrono obtener_leyes_raiz con () donde {
+        creo variable sql como "".
+        incremento sql en "SELECT * FROM Ley WHERE padre IS NULL;".
+        creo resultado como asíncronamente this.root.$db.run(sql).
+        asigno this.ley_seleccionada_descendencia como resultado.
+        hago this.$forceUpdate(true).
+      }.
+      método asíncrono seleccionar_ley con (nombre) donde {
+        asigno this.ley_seleccionada como undefined.
+        asigno this.ley_seleccionada_descendencia como undefined.
+        asigno this.nombre_de_ley_seleccionada como nombre.
+        hago asíncronamente this.actualizar_datos().
+        hago this.$forceUpdate(true).
+      }.
+      método asíncrono actualizar_datos con () donde {
+        hago asíncronamente this.obtener_ley_seleccionada().
+        hago this.$forceUpdate(true).
+      }.
+    }.
+    propiedad watch como {
+      método nombre_de_ley_seleccionada con (nuevo_valor) donde {
+        si nuevo_valor es tipo indefinido retorno.
+        retorno this.obtener_ley_seleccionada().
+      }.
+      método ley_seleccionada con (nuevo_valor) donde {
+        si nuevo_valor es tipo indefinido retorno.
+        retorno this.obtener_descendencia_de_ley_seleccionada().
+      }.
+    }.
+    método beforeMount donde {}.
+    método asíncrono mounted donde {
+      hago asíncronamente setTimeout(una lambda donde hago this.seleccionar_ley(undefined), 1000).
+    }.
+  }.
+}.
+
+asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio" con plantilla {
+  <div class="PaginaDeInicio Component">
+    <NavegadorDeLey :root="root" />
+    <div class="window">
+      <div class="title-bar">
+        <div class="title-bar-text">
+          🌐 SiLe | Editor 🌐
+        </div>
+      </div>
+      <div class="window-body has-space">
+        <div style="">
+          <textarea style="width: 100%;" ref="entrada_de_texto" v-model="entrada_de_texto"></textarea>
+          <button style="width:100%;" v-on:click="ejecutar_sql">▶ Ejecutar</button>
+          <div class="error_box" v-if="error" v-on:click="limpiarError">
+            <div><b>Nombre:</b> {{ error.name }}</div>
+            <div v-if="error.location">
+              <div><b>Localización:</b> {{ error.location }}</div>
+              <div><b>Sugerencias:</b> {{ JSON.stringify(error.expected, null, 2) }}</div>
+            </div>
+            <div><b>Mensaje:</b> {{ error.message }}</div>
+          </div>
+          <div class="success_box" v-if="ast && !error">
+            <pre style="overflow:scroll;">{{ ast.toSQL.join("\n") }}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+} con lógica {
+  retorno {
+    propiedad props como {
+      propiedad root como {
+        propiedad type como Object.
+        propiedad required como true.
+      }.
+    }.
+    método data donde {
+      creo texto_valido como this.root.obtener_ultimo_texto_valido().
+      retorno {
         cmEntrada: undefined,
+        entrada_de_texto: texto_valido, ### "Se crea ley <Constitución> con contenido:\n\nPrimera ley.",
         ast: undefined,
         error: false
       }.
@@ -71,15 +190,35 @@ asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio"
         asigno this.error como false.
         hago this.$forceUpdate(true).
       }.
-      método gestionarError con (error) donde {
+      método gestion_de_error con (error) donde {
         asigno this.error como error.
-        hago this.$focreUpdate(true).
+        hago this.$forceUpdate(true).
       }.
-      método validarTexto donde {
-        creo valorDeEntrada como this.cmEntrada.getValue().
-        creo ast como this.$window.Sile_parser.parse(valorDeEntrada).
+      método asíncrono ejecutar_sql donde {
+        creo sile_script como this.cmEntrada.getValue().
+        creo ast como this.root.$window.Sile_api.parser.parse(sile_script).
         asigno this.ast como ast.
-      } en errores hago this.gestionarError(error).
+        creo sentencias_sql como ast.toSQL.
+        creo inicio como un nuevo Date().
+        creo variable resultados como [].
+        desde 0 hasta sentencias_sql.length {
+          creo variable sql como "".
+          intento {
+            asigno sql como sentencias_sql[index].
+            creo resultado como asíncronamente this.root.$db.run(sql).
+            hago resultados.push({ sql, resultado }).
+          } en errores {
+            imprimo "Error en la sentencia en memoria nº " + index + ":".
+            imprimo error.
+            incremento error.message en " [sentence " + index + ": " + sql + "]".
+            lanzo error.
+          }.
+        }.
+        creo finalizamiento como un nuevo Date().
+        creo tardanza como finalizamiento - inicio.
+        asigno this.script_de_salida como resultados textualizado + "\n\nRespuesta procesada en " + (tardanza / 1000) + " segundos.".
+        hago this.root.guardar_ultimo_texto_valido(sile_script).
+      } en errores hago this.gestion_de_error(error).
     }.
     propiedad watch como {}.
     método beforeMount donde {}.
@@ -115,11 +254,95 @@ asigno window.App como una aplicación vue2 con nombre "App" con rutas [{
       retorno {}.
     }.
     propiedad methods como {
-
+      método obtener_base_de_datos_de_operaciones_persistida donde {
+        si window.localStorage.__sintaxis_legislativa_ui__ no es tipo texto {
+          ##*
+CREATE TABLE Modificacion_de_ley (
+  nombre VARCHAR(2048) UNIQUE,
+  detalles TEXT
+);
+CREATE TABLE Ley (
+  nombre VARCHAR(2048) UNIQUE,
+  padre VARCHAR(2048),
+  contenido TEXT,
+  detalles TEXT,
+  modificacion_de_ley VARCHAR(2048),
+  FOREIGN KEY (modificacion_de_ley) REFERENCES Modificacion_de_ley (nombre)
+);
+          *##
+          asigno window.localStorage.__sintaxis_legislativa_ui__ como [`
+            CREATE TABLE Modificacion_de_ley (
+              nombre VARCHAR(2048) UNIQUE,
+              detalles TEXT
+            );`, `
+            CREATE TABLE Ley (
+              nombre VARCHAR(2048) UNIQUE,
+              padre VARCHAR(2048),
+              contenido TEXT,
+              detalles TEXT,
+              modificacion_de_ley VARCHAR(2048),
+              FOREIGN KEY (modificacion_de_ley) REFERENCES Modificacion_de_ley (nombre)
+            );`
+          ] textualizado.
+        }.
+        intento donde hago window.localStorage.__sintaxis_legislativa_ui__ parseado como JSON en errores asigno window.localStorage.__sintaxis_legislativa_ui__ como "[]".
+        retorno window.localStorage.__sintaxis_legislativa_ui__ parseado como JSON.
+      }.
+      método guardar_base_de_datos_de_comandos_persistida con (datos) donde {
+        asigno window.localStorage.__sintaxis_legislativa_ui__ como datos textualizado.
+      }.
+      método obtener_ultimo_texto_valido donde {
+        si window.localStorage.__sintaxis_legislativa_ui__ultimo_texto_valido no es tipo texto {
+          asigno window.localStorage.__sintaxis_legislativa_ui__ultimo_texto_valido como "".
+        }.
+        retorno window.localStorage.__sintaxis_legislativa_ui__ultimo_texto_valido.
+      }.
+      método guardar_ultimo_texto_valido con (nuevo_texto) donde {
+        asigno window.localStorage.__sintaxis_legislativa_ui__ultimo_texto_valido como nuevo_texto.
+      }.
+      método asíncrono actualizar_operaciones con () donde {
+        creo operacions como this.obtener_base_de_datos_de_operaciones_persistida().
+        desde 0 hasta operacions.length {
+          intento {
+            creo operacion como operacions[index].
+            imprimo "Cargando operación " + index + "...".
+            hago asíncronamente this.$db.run(operacion, false).
+          } en errores {
+            imprimo error.
+          }.
+        }.
+      }.
+      método asíncrono generar_base_de_datos con () donde {
+        creo sqlite3 como asíncronamente window.sqlite3InitModule().
+        creo db como una nueva sqlite3.oo1.DB("/sqlite_ui.sqlite3",'ct').
+        retorno {
+          native: db,
+          run: una lambda con (sql, habilitar_historial o en su defecto true) donde {
+            retorno una nueva Promise(una lambda con (ok, fail) donde {
+              creo resultRows como [].
+              imprimo "[SQL] " + sql.
+              creo resultado como db.exec({
+                sql,
+                rowMode: "object",
+                returnValue: "resultRows"
+              }).
+              si habilitar_historial y no (sql.trim().toUpperCase().startsWith("SELECT")) {
+                creo comandos como this.obtener_base_de_datos_de_operaciones_persistida().
+                apendizo sql en comandos.
+                hago this.guardar_base_de_datos_de_comandos_persistida(comandos).
+              }.
+              retorno ok(resultado).
+            } en errores retorno fail(error)).
+          }
+        }.
+      }.
     }.
     propiedad watch como {}.
-    método beforeMount donde {
+    método asíncrono beforeMount donde {
       asigno this.$window como window.
+      asigno this.$window.root como this.
+      asigno this.$db como asíncronamente this.generar_base_de_datos().
+      hago asíncronamente this.actualizar_operaciones().
     }.
     método mounted donde {}.
   }.

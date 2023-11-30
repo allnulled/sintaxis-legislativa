@@ -1,9 +1,7 @@
 {
   "ast": [
     {
-      "cabecera": {
-        "titulo": "<Nombre de la modificación de ley>"
-      },
+      "cabecera": null,
       "sentencias": [
         {
           "tipo": "creación de ley",
@@ -28,8 +26,7 @@
         }
       ],
       "toSQL": [
-        "INSERT INTO Modificacion_de_ley (nombre) VALUES (\n  '<Nombre de la modificación de ley>'\n);",
-        "INSERT INTO Ley (nombre, padre, contenido, modificacion_de_ley) VALUES (\n  '<Nombre de ley>',\n  '<Id de ley padre>',\n  'Bla bla bla.\\nBla bla bla.\\nBla bla bla.',\n  '<Nombre de la modificación de ley>'\n);\n",
+        "INSERT INTO Ley (nombre, padre, contenido, modificacion_de_ley) VALUES (\n  '<Nombre de ley>',\n  '<Id de ley padre>',\n  'Bla bla bla.\\nBla bla bla.\\nBla bla bla.',\n  ''\n);\n",
         "UPDATE Ley SET \n  contenido = 'Bla bla bla.\\nBla bla bla.\\nBla bla bla.'\nWHERE nombre = '<Id>';\n",
         "DELETE FROM Ley WHERE nombre = '<Id>';\n",
         "DELETE FROM Ley WHERE padre = '<Id>';\n",
@@ -38,8 +35,7 @@
     }
   ],
   "toSQL": [
-    "INSERT INTO Modificacion_de_ley (nombre) VALUES (\n  '<Nombre de la modificación de ley>'\n);",
-    "INSERT INTO Ley (nombre, padre, contenido, modificacion_de_ley) VALUES (\n  '<Nombre de ley>',\n  '<Id de ley padre>',\n  'Bla bla bla.\\nBla bla bla.\\nBla bla bla.',\n  '<Nombre de la modificación de ley>'\n);\n",
+    "INSERT INTO Ley (nombre, padre, contenido, modificacion_de_ley) VALUES (\n  '<Nombre de ley>',\n  '<Id de ley padre>',\n  'Bla bla bla.\\nBla bla bla.\\nBla bla bla.',\n  ''\n);\n",
     "UPDATE Ley SET \n  contenido = 'Bla bla bla.\\nBla bla bla.\\nBla bla bla.'\nWHERE nombre = '<Id>';\n",
     "DELETE FROM Ley WHERE nombre = '<Id>';\n",
     "DELETE FROM Ley WHERE padre = '<Id>';\n",

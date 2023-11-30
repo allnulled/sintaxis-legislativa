@@ -1,0 +1,132 @@
+{
+  "ast": [
+    {
+      "cabecera": {
+        "titulo": "<Ley tal>"
+      },
+      "sentencias": [
+        {
+          "tipo": "creación de ley",
+          "nombre": "<Nombre de ley>",
+          "padre": "<Id de ley padre>",
+          "contenido": "Bla bla bla.\nBla bla bla.\nBla bla bla."
+        },
+        {
+          "tipo": "actualización de ley",
+          "nombre": "<Id>",
+          "contenido": "Bla bla bla.\nBla bla bla.\nBla bla bla."
+        },
+        {
+          "tipo": "eliminación de ley",
+          "nombre": "<Id>",
+          "descendencia": false
+        },
+        {
+          "tipo": "eliminación de ley",
+          "nombre": "<Id>",
+          "descendencia": true
+        }
+      ],
+      "toSQL": [
+        "INSERT INTO Modificacion_de_ley (nombre) VALUES (\n  '<Ley tal>'\n);",
+        "INSERT INTO Ley (nombre, padre, contenido, modificacion_de_ley) VALUES (\n  '<Nombre de ley>',\n  '<Id de ley padre>',\n  'Bla bla bla.\\nBla bla bla.\\nBla bla bla.',\n  '<Ley tal>'\n);\n",
+        "UPDATE Ley SET \n  contenido = 'Bla bla bla.\\nBla bla bla.\\nBla bla bla.'\nWHERE nombre = '<Id>';\n",
+        "DELETE FROM Ley WHERE nombre = '<Id>';\n",
+        "DELETE FROM Ley WHERE padre = '<Id>';\n",
+        "DELETE FROM Ley WHERE nombre = '<Id>';\n"
+      ]
+    },
+    {
+      "cabecera": {
+        "titulo": "<Ley tal>"
+      },
+      "sentencias": [
+        {
+          "tipo": "creación de ley",
+          "nombre": "<Nombre de ley>",
+          "padre": "<Id de ley padre>",
+          "contenido": "Bla bla bla.\nBla bla bla.\nBla bla bla."
+        },
+        {
+          "tipo": "actualización de ley",
+          "nombre": "<Id>",
+          "contenido": "Bla bla bla.\nBla bla bla.\nBla bla bla."
+        },
+        {
+          "tipo": "eliminación de ley",
+          "nombre": "<Id>",
+          "descendencia": false
+        },
+        {
+          "tipo": "eliminación de ley",
+          "nombre": "<Id>",
+          "descendencia": true
+        }
+      ],
+      "toSQL": [
+        "INSERT INTO Modificacion_de_ley (nombre) VALUES (\n  '<Ley tal>'\n);",
+        "INSERT INTO Ley (nombre, padre, contenido, modificacion_de_ley) VALUES (\n  '<Nombre de ley>',\n  '<Id de ley padre>',\n  'Bla bla bla.\\nBla bla bla.\\nBla bla bla.',\n  '<Ley tal>'\n);\n",
+        "UPDATE Ley SET \n  contenido = 'Bla bla bla.\\nBla bla bla.\\nBla bla bla.'\nWHERE nombre = '<Id>';\n",
+        "DELETE FROM Ley WHERE nombre = '<Id>';\n",
+        "DELETE FROM Ley WHERE padre = '<Id>';\n",
+        "DELETE FROM Ley WHERE nombre = '<Id>';\n"
+      ]
+    },
+    {
+      "cabecera": {
+        "titulo": "<Ley tal>"
+      },
+      "sentencias": [
+        {
+          "tipo": "creación de ley",
+          "nombre": "<Nombre de ley>",
+          "padre": "<Id de ley padre>",
+          "contenido": "Bla bla bla.\nBla bla bla.\nBla bla bla."
+        },
+        {
+          "tipo": "actualización de ley",
+          "nombre": "<Id>",
+          "contenido": "Bla bla bla.\nBla bla bla.\nBla bla bla."
+        },
+        {
+          "tipo": "eliminación de ley",
+          "nombre": "<Id>",
+          "descendencia": false
+        },
+        {
+          "tipo": "eliminación de ley",
+          "nombre": "<Id>",
+          "descendencia": true
+        }
+      ],
+      "toSQL": [
+        "INSERT INTO Modificacion_de_ley (nombre) VALUES (\n  '<Ley tal>'\n);",
+        "INSERT INTO Ley (nombre, padre, contenido, modificacion_de_ley) VALUES (\n  '<Nombre de ley>',\n  '<Id de ley padre>',\n  'Bla bla bla.\\nBla bla bla.\\nBla bla bla.',\n  '<Ley tal>'\n);\n",
+        "UPDATE Ley SET \n  contenido = 'Bla bla bla.\\nBla bla bla.\\nBla bla bla.'\nWHERE nombre = '<Id>';\n",
+        "DELETE FROM Ley WHERE nombre = '<Id>';\n",
+        "DELETE FROM Ley WHERE padre = '<Id>';\n",
+        "DELETE FROM Ley WHERE nombre = '<Id>';\n"
+      ]
+    }
+  ],
+  "toSQL": [
+    "INSERT INTO Modificacion_de_ley (nombre) VALUES (\n  '<Ley tal>'\n);",
+    "INSERT INTO Ley (nombre, padre, contenido, modificacion_de_ley) VALUES (\n  '<Nombre de ley>',\n  '<Id de ley padre>',\n  'Bla bla bla.\\nBla bla bla.\\nBla bla bla.',\n  '<Ley tal>'\n);\n",
+    "UPDATE Ley SET \n  contenido = 'Bla bla bla.\\nBla bla bla.\\nBla bla bla.'\nWHERE nombre = '<Id>';\n",
+    "DELETE FROM Ley WHERE nombre = '<Id>';\n",
+    "DELETE FROM Ley WHERE padre = '<Id>';\n",
+    "DELETE FROM Ley WHERE nombre = '<Id>';\n",
+    "INSERT INTO Modificacion_de_ley (nombre) VALUES (\n  '<Ley tal>'\n);",
+    "INSERT INTO Ley (nombre, padre, contenido, modificacion_de_ley) VALUES (\n  '<Nombre de ley>',\n  '<Id de ley padre>',\n  'Bla bla bla.\\nBla bla bla.\\nBla bla bla.',\n  '<Ley tal>'\n);\n",
+    "UPDATE Ley SET \n  contenido = 'Bla bla bla.\\nBla bla bla.\\nBla bla bla.'\nWHERE nombre = '<Id>';\n",
+    "DELETE FROM Ley WHERE nombre = '<Id>';\n",
+    "DELETE FROM Ley WHERE padre = '<Id>';\n",
+    "DELETE FROM Ley WHERE nombre = '<Id>';\n",
+    "INSERT INTO Modificacion_de_ley (nombre) VALUES (\n  '<Ley tal>'\n);",
+    "INSERT INTO Ley (nombre, padre, contenido, modificacion_de_ley) VALUES (\n  '<Nombre de ley>',\n  '<Id de ley padre>',\n  'Bla bla bla.\\nBla bla bla.\\nBla bla bla.',\n  '<Ley tal>'\n);\n",
+    "UPDATE Ley SET \n  contenido = 'Bla bla bla.\\nBla bla bla.\\nBla bla bla.'\nWHERE nombre = '<Id>';\n",
+    "DELETE FROM Ley WHERE nombre = '<Id>';\n",
+    "DELETE FROM Ley WHERE padre = '<Id>';\n",
+    "DELETE FROM Ley WHERE nombre = '<Id>';\n"
+  ]
+}
